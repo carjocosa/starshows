@@ -11,3 +11,4 @@ Ver `DEPLOY.md` para deploy en VPS y `AUDIT.md` para auditoría completa.
 ```bash
 cp .env.example .env && ./deploy.sh
 ```
+# trigger 2026-09-03T23:43:04Z
