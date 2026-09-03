@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Directus — Starshows Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{directus:'#6644FF',starBlue:'#0A2A6B',starRed:'#E30613'},fontFamily:{poppins:['Poppins']}}}}</script>
+</head>
+<body class="bg-[#F8F9FB] font-poppins antialiased">
+<nav class="bg-white border-b border-black/10 px-6 py-3 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 bg-directus rounded-lg grid place-items-center text-white font-bold">◆</div>
+    <span class="font-bold text-sm">Directus</span><span class="text-black/30 text-sm">/</span><span class="text-sm font-semibold">Starshows</span>
+    <span class="ml-2 text-xs bg-starBlue text-white px-2 py-1 rounded-full">admin.starshows.ec</span>
+  </div>
+  <div class="flex items-center gap-2 text-xs"><span class="w-7 h-7 rounded-full bg-starBlue text-white grid place-items-center">A</span><span class="font-semibold">Admin</span></div>
+</nav>
+<div class="flex">
+  <aside class="w-56 bg-white border-r border-black/10 min-h-[calc(100vh-56px)] p-4">
+    <p class="text-[11px] tracking-widest font-bold text-black/30">COLECCIONES</p>
+    <div class="mt-3 space-y-1 text-sm">
+      <a class="flex items-center gap-2 bg-[#F0F0FF] text-directus px-3 py-2 rounded-lg font-semibold border border-directus/20">◉ Event</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ Venue</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ Artist</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ TicketType</a>
+      <a class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ Order</a>
+    </div>
+    <p class="text-[11px] tracking-widest font-bold text-black/30 mt-6">ROLES</p>
+    <p class="text-xs text-black/50 mt-1">Admin / Contenido / Aliados</p>
+  </aside>
+  <main class="flex-1 p-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-xl font-bold">Event <span class="text-black/40 font-normal text-sm">/ Nuevo</span></h1>
+      <div class="flex gap-2"><button class="px-4 py-2 rounded-full border border-black/10 text-xs font-semibold">Guardar como borrador</button><button class="px-4 py-2 rounded-full bg-directus text-white text-xs font-bold">Publicar →</button></div>
+    </div>
+    <div class="mt-6 grid grid-cols-12 gap-6">
+      <div class="col-span-8 space-y-4">
+        <div class="bg-white rounded-2xl border border-black/10 p-5">
+          <label class="text-xs font-bold tracking-widest text-black/50">TÍTULO DEL EVENTO *</label>
+          <input value="FEID — FERXXOCALIPSIS" class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2.5 text-sm font-semibold">
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <div><label class="text-xs font-bold tracking-widest text-black/50">SLUG</label><input value="feid-ferxxocalipsis-guayaquil" class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-xs font-mono bg-black/[0.02]"></div>
+            <div><label class="text-xs font-bold tracking-widest text-black/50">ESTADO</label><select class="mt-1 w-full border-2 border-emerald-200 bg-emerald-50 rounded-xl px-3 py-2 text-xs font-bold"><option>A LA VENTA</option><option>BORRADOR</option><option>AGOTADO</option></select></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <div><label class="text-xs font-bold tracking-widest text-black/50">FECHA Y HORA *</label><input value="2026-01-22T20:00" type="datetime-local" class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-sm"></div>
+            <div><label class="text-xs font-bold tracking-widest text-black/50">CIUDAD *</label><select class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-sm"><option>GUAYAQUIL</option><option>QUITO</option><option>CUENCA</option></select></div>
+          </div>
+          <div class="mt-4"><label class="text-xs font-bold tracking-widest text-black/50">VENUE</label><select class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-sm"><option>Estadio Modelo Alberto Spencer — 12,000 cap.</option></select></div>
+        </div>
+        <div class="bg-white rounded-2xl border border-black/10 p-5">
+          <label class="text-xs font-bold tracking-widest text-black/50">FOTO PORTADA / FLYER</label>
+          <div class="mt-2 h-36 rounded-xl border-2 border-dashed border-black/10 bg-black/[0.02] grid place-items-center text-xs text-black/40">Arrastrar imagen o click para subir → MinIO S3</div>
+        </div>
+        <div class="bg-white rounded-2xl border-2 border-starBlue/20 p-5">
+          <div class="flex items-center justify-between"><label class="text-xs font-bold tracking-widest text-starBlue">ENTRADAS — PRECIOS USD</label><button class="text-xs bg-starBlue text-white px-3 py-1 rounded-full font-bold">+ Añadir tipo</button></div>
+          <div class="mt-3 space-y-2">
+            <div class="flex gap-2 items-center bg-[#F4F6FB] border border-black/5 rounded-xl px-3 py-2"><span class="text-xs font-bold flex-1">General</span><span class="text-xs font-mono">$25.00</span><span class="text-xs bg-white border px-2 py-1 rounded-full">500 cupos</span><span class="text-emerald-600 text-xs font-bold">420 disp.</span></div>
+            <div class="flex gap-2 items-center bg-[#EFF3FF] border-2 border-starBlue rounded-xl px-3 py-2"><span class="text-xs font-bold flex-1">VIP Star</span><span class="text-xs font-mono font-bold">$55.00</span><span class="text-xs bg-starBlue text-white px-2 py-1 rounded-full">300 cupos</span><span class="text-amber-600 text-xs font-bold">¡88!</span></div>
+            <div class="flex gap-2 items-center bg-white border border-black/10 rounded-xl px-3 py-2"><span class="text-xs font-bold flex-1">Star Box</span><span class="text-xs font-mono">$90.00</span><span class="text-xs bg-white border px-2 py-1 rounded-full">120 cupos</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-4 space-y-4">
+        <div class="bg-white rounded-2xl border border-black/10 p-5">
+          <p class="text-xs font-bold tracking-widest text-black/50">VISTA PREVIA EN VIVO</p>
+          <div class="mt-3 rounded-xl overflow-hidden border border-black/10">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80" class="h-28 w-full object-cover">
+            <div class="p-3"><p class="text-xs font-bold">FEID — 22 ENE · GUAYAQUIL</p><p class="text-[11px] text-black/50">Estadio Modelo · Desde $35.00 USD</p></div>
+          </div>
+          <button class="mt-3 w-full bg-starRed text-white py-2 rounded-full text-xs font-bold">Duplicar evento → 3 min</button>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+          <p class="text-xs font-bold text-amber-800">💡 Flujo de 3 minutos</p>
+          <ol class="text-xs text-amber-900/70 mt-1 list-decimal list-inside space-y-1"><li>Duplicar evento anterior</li><li>Cambiar fecha + ciudad</li><li>Ajustar precios USD</li><li>Publicar / Programar</li></ol>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

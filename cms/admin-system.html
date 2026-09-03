@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Starshows — Admin Sistema Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{directus:'#6644FF',starBlue:'#0A2A6B',starRed:'#E30613'},fontFamily:{poppins:['Poppins'],mono:['JetBrains Mono']}}}}</script>
+</head>
+<body class="bg-[#F1F3F5] font-poppins antialiased">
+<nav class="bg-white border-b border-black/10 px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+  <div class="flex items-center gap-3"><div class="w-8 h-8 bg-directus rounded-lg grid place-items-center text-white font-bold">◆</div><span class="font-bold text-sm">Starshows</span><span class="text-xs bg-ink text-white px-2 py-1 rounded-full ml-2">SISTEMA — ADMIN</span></div>
+  <div class="flex items-center gap-3 text-xs"><span class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-1 rounded-full font-bold">● Sistema operativo</span><span class="w-7 h-7 rounded-full bg-starBlue text-white grid place-items-center">A</span></div>
+</nav>
+<div class="flex">
+  <aside class="w-64 bg-white border-r border-black/10 min-h-[calc(100vh-56px)] p-4 sticky top-[56px] h-[calc(100vh-56px)] overflow-auto">
+    <p class="text-[11px] tracking-widest font-bold text-black/30">GESTIÓN SISTEMA</p>
+    <div class="mt-2 space-y-1 text-sm" id="nav">
+      <button data-tab="dash" class="tab-btn w-full text-left px-3 py-2 rounded-lg bg-starBlue text-white font-semibold">◎ Dashboard</button>
+      <button data-tab="event" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Eventos</button>
+      <button data-tab="venue" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Venues & Ciudades</button>
+      <button data-tab="ticket" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Entradas & Precios USD</button>
+      <button data-tab="order" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Órdenes & QR</button>
+      <button data-tab="sponsor" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Aliados</button>
+      <p class="text-[11px] tracking-widest font-bold text-black/30 mt-4">SISTEMA</p>
+      <button data-tab="users" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Usuarios & Roles</button>
+      <button data-tab="settings" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Configuración</button>
+      <button data-tab="logs" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Logs & Auditoría</button>
+      <button data-tab="backup" class="tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5">◎ Backups</button>
+    </div>
+  </aside>
+  <main class="flex-1 p-6">
+    <div id="tab-dash" class="tab">
+      <h1 class="text-xl font-bold">Dashboard — Sistema</h1>
+      <div class="grid grid-cols-4 gap-4 mt-4">
+        <div class="bg-white rounded-2xl border p-4"><p class="text-xs text-black/40">VENTAS HOY</p><p class="text-2xl font-extrabold">$12,450 <span class="text-xs font-normal text-black/40">USD</span></p><p class="text-xs text-emerald-600">+18% vs ayer</p></div>
+        <div class="bg-white rounded-2xl border p-4"><p class="text-xs text-black/40">ENTRADAS VENDIDAS</p><p class="text-2xl font-extrabold">342 / 920</p><div class="h-1.5 bg-black/10 rounded-full mt-2"><div class="h-full w-[37%] bg-starBlue rounded-full"></div></div></div>
+        <div class="bg-white rounded-2xl border p-4"><p class="text-xs text-black/40">QR VALIDADOS</p><p class="text-2xl font-extrabold">128</p><p class="text-xs text-black/40">puerta offline OK</p></div>
+        <div class="bg-starRed text-white rounded-2xl p-4"><p class="text-xs text-white/70">ALERTAS</p><p class="text-sm font-bold mt-1">FEID — 88 VIP restantes</p><p class="text-xs text-white/70">reposición sugerida</p></div>
+      </div>
+      <div class="mt-4 bg-white rounded-2xl border p-4"><p class="text-xs font-bold tracking-widest">VENTAS POR EVENTO (USD)</p><div class="mt-3 h-24 flex items-end gap-2"><div class="flex-1 bg-starBlue rounded-t-lg" style="height:68%"></div><div class="flex-1 bg-starBlue rounded-t-lg" style="height:92%"></div><div class="flex-1 bg-black/10 rounded-t-lg" style="height:32%"></div><div class="flex-1 bg-starRed rounded-t-lg" style="height:54%"></div></div></div>
+    </div>
+    <div id="tab-venue" class="tab hidden">
+      <h1 class="text-xl font-bold">Venues & Ciudades — editable</h1>
+      <div class="mt-4 bg-white rounded-2xl border overflow-hidden">
+        <div class="px-4 py-2 bg-black/[0.02] text-xs font-bold flex justify-between"><span>Venues (ciudad libre — agregue cualquiera)</span><button class="bg-starBlue text-white px-3 py-1 rounded-full text-xs">+ Nuevo Venue</button></div>
+        <div class="divide-y text-sm">
+          <div class="px-4 py-3 grid grid-cols-12 gap-2 items-center"><input value="Estadio Modelo Alberto Spencer" class="col-span-5 border rounded-lg px-2 py-1"><input value="GUAYAQUIL" list="cities" class="col-span-3 border-2 border-starBlue/20 rounded-lg px-2 py-1"><input value="12000" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs font-mono">maps.app.goo.gl/...</span></div>
+          <div class="px-4 py-3 grid grid-cols-12 gap-2 items-center"><input value="Coliseo General Rumiñahui" class="col-span-5 border rounded-lg px-2 py-1"><input value="QUITO" list="cities" class="col-span-3 border rounded-lg px-2 py-1"><input value="8500" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs font-mono">maps...</span></div>
+        </div>
+        <datalist id="cities"><option value="GUAYAQUIL"><option value="QUITO"><option value="CUENCA"><option value="MANTA"></datalist>
+      </div>
+      <div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs"><span class="font-bold">Ciudades:</span> Escriba nueva ciudad directamente (ej: LOJA, AMBATO) — se crea al guardar y aparece en filtros.</div>
+    </div>
+    <div id="tab-ticket" class="tab hidden">
+      <h1 class="text-xl font-bold">Entradas & Precios USD — control aforo</h1>
+      <div class="mt-4 bg-white rounded-2xl border-2 border-starBlue/20 p-4">
+        <div class="flex justify-between"><span class="text-xs font-bold text-starBlue">FEID — FERXXOCALIPSIS</span><button class="text-xs bg-starBlue text-white px-3 py-1 rounded-full">+ Tipo</button></div>
+        <div class="mt-3 space-y-2 text-sm">
+          <div class="grid grid-cols-12 gap-2 items-center bg-[#F4F6FB] border rounded-xl px-3 py-2"><input value="General" class="col-span-4 border rounded-lg px-2 py-1"><div class="col-span-3 flex gap-1"><span>$</span><input value="35.00" class="border rounded-lg px-2 py-1 w-24 font-mono"></div><input value="500" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs font-bold text-emerald-600">420 disp.</span><span class="col-span-1 text-xs">✕</span></div>
+          <div class="grid grid-cols-12 gap-2 items-center bg-[#EFF3FF] border-2 border-starBlue rounded-xl px-3 py-2"><input value="VIP Star" class="col-span-4 border rounded-lg px-2 py-1 font-bold"><div class="col-span-3 flex gap-1"><span>$</span><input value="65.00" class="border-2 border-starBlue rounded-lg px-2 py-1 w-24 font-mono font-bold"></div><input value="300" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs font-bold text-amber-600">88 disp.</span><span class="col-span-1 text-xs">✕</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="tab-users" class="tab hidden">
+      <h1 class="text-xl font-bold">Usuarios & Roles — sistema</h1>
+      <div class="mt-4 bg-white rounded-2xl border overflow-hidden text-sm">
+        <div class="grid grid-cols-12 px-4 py-2 bg-black/[0.02] text-xs font-bold text-black/40"><span class="col-span-4">EMAIL</span><span class="col-span-3">ROL</span><span class="col-span-3">PERMISOS</span><span class="col-span-2">ESTADO</span></div>
+        <div class="px-4 py-3 grid grid-cols-12 text-xs border-t"><span class="col-span-4">admin@starshows.ec</span><span class="col-span-3"><span class="bg-ink text-white px-2 py-1 rounded-full">Admin</span></span><span class="col-span-3">Todo el sistema</span><span class="col-span-2"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">Activo</span></span></div>
+        <div class="px-4 py-3 grid grid-cols-12 text-xs border-t"><span class="col-span-4">contenido@starshows.ec</span><span class="col-span-3"><span class="bg-amber-100 text-amber-700 px-2 py-1 rounded-full">Contenido</span></span><span class="col-span-3">Eventos, Venues, Galería</span><span class="col-span-2">Activo</span></div>
+        <div class="px-4 py-3 grid grid-cols-12 text-xs border-t"><span class="col-span-4">taquilla@starshows.ec</span><span class="col-span-3"><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Taquilla</span></span><span class="col-span-3">Órdenes, QR, validación</span><span class="col-span-2">Activo</span></div>
+      </div>
+      <button class="mt-3 text-xs bg-white border px-4 py-2 rounded-full font-semibold">+ Nuevo usuario</button>
+    </div>
+    <div id="tab-settings" class="tab hidden">
+      <h1 class="text-xl font-bold">Configuración — sistema</h1>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="bg-white rounded-2xl border p-4"><p class="text-xs font-bold tracking-widest">PAGOS</p><label class="text-xs mt-2 block">Kushki Private Key</label><input value="••••••••••••••••" type="password" class="w-full border rounded-lg px-3 py-2 text-xs mt-1"><label class="text-xs mt-2 block">PayPhone API Key</label><input value="••••••••" type="password" class="w-full border rounded-lg px-3 py-2 text-xs mt-1"></div>
+        <div class="bg-white rounded-2xl border p-4"><p class="text-xs font-bold tracking-widest">EMAIL & SEO</p><label class="text-xs mt-2 block">SMTP Host</label><input value="smtp.starshows.ec" class="w-full border rounded-lg px-3 py-2 text-xs mt-1"><label class="text-xs mt-2 block">GA4 ID</label><input value="G-XXXXXXXX" class="w-full border rounded-lg px-3 py-2 text-xs mt-1"></div>
+      </div>
+    </div>
+    <div id="tab-logs" class="tab hidden">
+      <h1 class="text-xl font-bold">Logs & Auditoría</h1>
+      <div class="mt-4 bg-white rounded-2xl border p-4 font-mono text-xs"><div>2026-08-31 18:20 — admin@starshows.ec creó Event FEID — GUAYAQUIL</div><div>2026-08-31 18:21 — taquilla@starshows.ec validó QR A1B2C3D4</div><div>2026-08-31 18:22 — contenido@starshows.ec editó Venue Rumiñahui ciudad → QUITO</div></div>
+    </div>
+    <div id="tab-backup" class="tab hidden">
+      <h1 class="text-xl font-bold">Backups</h1><div class="mt-4 bg-white rounded-2xl border p-4"><p class="text-sm">Último backup: 2026-08-31 03:00 — 42MB — pg_dump + MinIO</p><button class="mt-2 bg-starBlue text-white px-4 py-2 rounded-full text-xs font-bold">Restaurar</button><button class="mt-2 ml-2 border px-4 py-2 rounded-full text-xs">Descargar</button></div>
+    </div>
+    <div id="tab-event" class="tab hidden"><p class="text-sm text-black/50">Ver pestaña Event en admin-full.html — edición completa de eventos con fecha+ciudad</p></div>
+    <div id="tab-order" class="tab hidden"><p class="text-sm text-black/50">Órdenes y QR — ver admin-full.html</p></div>
+    <div id="tab-sponsor" class="tab hidden"><p class="text-sm text-black/50">Aliados — CRUD Sponsor con logo y tier</p></div>
+  </main>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(x=>x.className='tab-btn w-full text-left px-3 py-2 rounded-lg hover:bg-black/5');
+    b.className='tab-btn w-full text-left px-3 py-2 rounded-lg bg-starBlue text-white font-semibold';
+    document.querySelectorAll('.tab').forEach(t=>t.classList.add('hidden'));
+    document.getElementById('tab-'+b.dataset.tab).classList.remove('hidden');
+  })
+})
+</script>
+</body>
+</html>

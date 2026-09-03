@@ -1,0 +1,9 @@
+{
+  "name": "Starshows Validador",
+  "short_name": "Starshows Puerta",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0F1F",
+  "theme_color": "#0A2A6B",
+  "icons": [{ "src": "icon.png", "sizes": "512x512", "type": "image/png" }]
+}

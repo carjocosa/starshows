@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0A2A6B">
+<link rel="manifest" href="manifest.json">
+<title>Starshows — Validador Puerta (Offline)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0A0F1F] text-white font-mono p-6">
+<h1 class="text-xl font-bold">STARSHOWS — VALIDADOR OFFLINE</h1>
+<p class="text-xs text-white/60 mt-1">Escanea QR sin internet. Sincroniza al reconectar.</p>
+<div class="mt-6 bg-white text-black rounded-2xl p-4">
+  <input id="qr" placeholder="Escanea o pega QR (ej: A1B2C3D4)" class="w-full border-2 border-[#0A2A6B] rounded-xl px-3 py-3 text-center font-bold tracking-widest">
+  <button onclick="validate()" class="mt-3 w-full bg-[#0A2A6B] text-white py-3 rounded-xl font-bold">VALIDAR →</button>
+  <p id="res" class="mt-3 text-center text-sm font-bold"></p>
+</div>
+<p class="text-[11px] text-white/40 mt-4">Guardado local: <span id="count">0</span> validaciones pendientes de sync</p>
+<script>
+let pending = JSON.parse(localStorage.getItem('pending')||'[]');
+document.getElementById('count').textContent = pending.length;
+async function validate(){
+  const code = document.getElementById('qr').value.trim().toUpperCase();
+  if(!code) return;
+  const res = document.getElementById('res');
+  try{
+    const r = await fetch('https://api.starshows.ec/api/orders/'+code+'/validate',{method:'POST'});
+    if(r.ok){res.textContent='✓ VALIDADO — Acceso permitido';res.className='mt-3 text-center text-sm font-bold text-emerald-600';pending.push({code,at:Date.now()});localStorage.setItem('pending',JSON.stringify(pending));}
+    else{const j=await r.json();res.textContent='✕ '+(j.message||'QR inválido / ya usado');res.className='mt-3 text-center text-sm font-bold text-red-600';}
+  }catch(e){res.textContent='● OFFLINE — Guardado para sync';res.className='mt-3 text-center text-sm font-bold text-amber-600';pending.push({code,at:Date.now()});localStorage.setItem('pending',JSON.stringify(pending));}
+  document.getElementById('count').textContent = pending.length;
+}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>

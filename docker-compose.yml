@@ -1,0 +1,121 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: starshows
+      POSTGRES_USER: starshows
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U starshows"]
+      interval: 10s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redisdata:/data
+
+  minio:
+    image: minio/minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+    volumes:
+      - miniodata:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://starshows:${DB_PASSWORD}@postgres:5432/starshows
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      JWT_SECRET: ${JWT_SECRET}
+      S3_ENDPOINT: http://minio:9000
+      S3_BUCKET: starshows
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+
+  directus:
+    image: directus/directus:11
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      KEY: ${DIRECTUS_KEY}
+      SECRET: ${DIRECTUS_SECRET}
+      DB_CLIENT: pg
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: starshows
+      DB_USER: starshows
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_ENABLED: true
+      CACHE_STORE: redis
+      CACHE_REDIS: redis://:${REDIS_PASSWORD}@redis:6379
+      STORAGE_LOCATIONS: s3
+      STORAGE_S3_DRIVER: s3
+      STORAGE_S3_ENDPOINT: http://minio:9000
+      STORAGE_S3_BUCKET: starshows
+      STORAGE_S3_REGION: us-east-1
+    ports:
+      - "8055:8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - ./cms:/directus/extensions
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - api
+      - directus
+    environment:
+      NEXT_PUBLIC_API_URL: ${API_URL}
+      NEXT_PUBLIC_DIRECTUS_URL: ${DIRECTUS_URL}
+    ports:
+      - "3000:3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - api
+      - directus
+
+volumes:
+  pgdata:
+  redisdata:
+  miniodata:
+  directus_uploads:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Venue {
+  id        String   @id @default(cuid())
+  name      String
+  city      String // libre: GUAYAQUIL, QUITO, CUENCA, MANTA, LOJA... agregue cualquiera
+  address   String?
+  capacity  Int
+  mapUrl    String?
+  lat       Float?
+  lng       Float?
+  events    Event[]
+  createdAt DateTime @default(now())
+}
+
+model Artist {
+  id        String  @id @default(cuid())
+  name      String
+  genre     String?
+  image     String?
+  spotifyUrl String?
+  events    EventArtist[]
+}
+
+model Sponsor {
+  id       String  @id @default(cuid())
+  name     String
+  logo     String
+  tier     String  @default("ALIADO")
+  website  String?
+  events   EventSponsor[]
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  date        DateTime
+  status      String   @default("BORRADOR")
+  coverImage  String?
+  gallery     Json?
+  description String?  @db.Text
+  venueId     String?
+  venue       Venue?   @relation(fields: [venueId], references: [id])
+  artists     EventArtist[]
+  sponsors    EventSponsor[]
+  ticketTypes TicketType[]
+  orders      Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([date])
+  @@index([status])
+}
+
+model EventArtist {
+  eventId  String
+  artistId String
+  event    Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  artist   Artist @relation(fields: [artistId], references: [id])
+  @@id([eventId, artistId])
+}
+
+model EventSponsor {
+  eventId   String
+  sponsorId String
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  sponsor   Sponsor @relation(fields: [sponsorId], references: [id])
+  @@id([eventId, sponsorId])
+}
+
+model TicketType {
+  id        String @id @default(cuid())
+  eventId   String
+  event     Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name      String
+  price     Decimal @db.Decimal(10,2)
+  capacity  Int
+  sold      Int     @default(0)
+  benefits  Json?
+  @@index([eventId])
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id])
+  email       String
+  total       Decimal  @db.Decimal(10,2)
+  status      String   @default("PENDING")
+  qrCode      String?  @unique
+  validatedAt DateTime?
+  createdAt   DateTime @default(now())
+  items       OrderItem[]
+  @@index([eventId, status])
+}
+
+model OrderItem {
+  id           String     @id @default(cuid())
+  orderId      String
+  order        Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  ticketTypeId String
+  quantity     Int
+  unitPrice    Decimal    @db.Decimal(10,2)
+}

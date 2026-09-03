@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Directus — Starshows Admin Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{directus:'#6644FF',starBlue:'#0A2A6B',starRed:'#E30613'},fontFamily:{poppins:['Poppins'],mono:['JetBrains Mono']}}}}</script>
+</head>
+<body class="bg-[#F8F9FB] font-poppins antialiased">
+<nav class="bg-white border-b border-black/10 px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+  <div class="flex items-center gap-3"><div class="w-8 h-8 bg-directus rounded-lg grid place-items-center text-white font-bold">◆</div><span class="font-bold text-sm">Directus</span><span class="text-black/30 text-sm">/</span><span class="text-sm font-semibold">Starshows — Admin Completo</span><span class="ml-2 text-xs bg-starBlue text-white px-2 py-1 rounded-full">admin.starshows.ec</span></div>
+  <span class="text-xs bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-1 rounded-full font-bold">TODO EDITABLE SIN CÓDIGO</span>
+</nav>
+<div class="flex">
+  <aside class="w-60 bg-white border-r border-black/10 min-h-[calc(100vh-56px)] p-4 sticky top-[56px] h-[calc(100vh-56px)] overflow-auto">
+    <p class="text-[11px] tracking-widest font-bold text-black/30">COLECCIONES — CLICK PARA EDITAR</p>
+    <div class="mt-3 space-y-1 text-sm" id="nav">
+      <button data-tab="event" class="tab-btn w-full text-left flex items-center gap-2 bg-[#F0F0FF] text-directus px-3 py-2 rounded-lg font-semibold border border-directus/20">◉ Event <span class="ml-auto text-[11px] bg-directus text-white px-1.5 py-0.5 rounded">12</span></button>
+      <button data-tab="venue" class="tab-btn w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ Venue <span class="ml-auto text-[11px] bg-black/10 px-1.5 py-0.5 rounded">6</span></button>
+      <button data-tab="artist" class="tab-btn w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ Artist <span class="ml-auto text-[11px] bg-black/10 px-1.5 py-0.5 rounded">24</span></button>
+      <button data-tab="ticket" class="tab-btn w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ TicketType <span class="ml-auto text-[11px] bg-black/10 px-1.5 py-0.5 rounded">18</span></button>
+      <button data-tab="order" class="tab-btn w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5">◎ Order <span class="ml-auto text-[11px] bg-black/10 px-1.5 py-0.5 rounded">342</span></button>
+    </div>
+    <div class="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-3"><p class="text-xs font-bold text-amber-800">Flujo 3 min</p><p class="text-[11px] text-amber-800/70 mt-1">Duplicar → editar fecha+ciudad → precios USD → publicar</p></div>
+  </aside>
+  <main class="flex-1 p-6">
+    <div id="tab-event" class="tab">
+      <div class="flex items-center justify-between"><h1 class="text-xl font-bold">Event <span class="text-black/40 font-normal text-sm">/ FERXXOCALIPSIS — editable</span></h1><div class="flex gap-2"><button class="px-4 py-2 rounded-full border border-black/10 text-xs font-semibold">Duplicar</button><button class="px-4 py-2 rounded-full bg-directus text-white text-xs font-bold">Guardar</button></div></div>
+      <div class="mt-4 bg-white rounded-2xl border border-black/10 p-5">
+        <label class="text-xs font-bold tracking-widest text-black/50">TÍTULO *</label><input value="FEID — FERXXOCALIPSIS" class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2.5 text-sm font-semibold">
+        <div class="grid grid-cols-3 gap-4 mt-4">
+          <div><label class="text-xs font-bold tracking-widest text-black/50">FECHA *</label><input value="2026-01-22T20:00" type="datetime-local" class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-sm"></div>
+          <div><label class="text-xs font-bold tracking-widest text-black/50">CIUDAD * <span class="font-normal normal-case text-black/40">— escriba nueva o elija</span></label><input list="cities" value="GUAYAQUIL" placeholder="Ej: MANTA, LOJA, AMBATO..." class="mt-1 w-full border-2 border-starBlue/20 rounded-xl px-3 py-2 text-sm font-semibold"><datalist id="cities"><option value="GUAYAQUIL"><option value="QUITO"><option value="CUENCA"><option value="MANTA"><option value="LOJA"><option value="AMBATO"></datalist></div>
+          <div><label class="text-xs font-bold tracking-widest text-black/50">ESTADO</label><select class="mt-1 w-full border-2 border-emerald-200 bg-emerald-50 rounded-xl px-3 py-2 text-xs font-bold"><option>A LA VENTA</option></select></div>
+        </div>
+        <div class="mt-4"><label class="text-xs font-bold tracking-widest text-black/50">VENUE (editable en pestaña Venue)</label><select class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-sm"><option>Estadio Modelo Alberto Spencer — 12,000</option></select></div>
+        <div class="mt-4"><label class="text-xs font-bold tracking-widest text-black/50">DESCRIPCIÓN</label><textarea rows="2" class="mt-1 w-full border border-black/10 rounded-xl px-3 py-2 text-sm">Producción integral Starshows. Escenario 360°, sonido L-Acoustics. Edite aquí todo el texto.</textarea></div>
+      </div>
+    </div>
+
+    <div id="tab-venue" class="tab hidden">
+      <h1 class="text-xl font-bold">Venue <span class="text-black/40 font-normal text-sm">/ todos editables</span></h1>
+      <div class="mt-4 bg-white rounded-2xl border border-black/10 overflow-hidden">
+        <div class="grid grid-cols-12 gap-0 text-xs font-bold tracking-widest text-black/40 px-4 py-2 bg-black/[0.02] border-b"><span class="col-span-4">NOMBRE</span><span class="col-span-2">CIUDAD</span><span class="col-span-2">AFORO</span><span class="col-span-4">DIRECCIÓN / MAPA</span></div>
+        <div class="divide-y">
+          <div class="grid grid-cols-12 gap-2 px-4 py-3 items-center text-sm"><input value="Estadio Modelo Alberto Spencer" class="col-span-4 border border-black/10 rounded-lg px-2 py-1.5"><input value="GUAYAQUIL" list="cities" class="col-span-2 border-2 border-starBlue/20 rounded-lg px-2 py-1.5 font-semibold"><input value="12000" type="number" class="col-span-2 border rounded-lg px-2 py-1.5"><input value="Av. Las Américas — maps.app.goo.gl/..." class="col-span-4 border rounded-lg px-2 py-1.5 text-xs"></div>
+          <div class="grid grid-cols-12 gap-2 px-4 py-3 items-center text-sm"><input value="Coliseo General Rumiñahui" class="col-span-4 border rounded-lg px-2 py-1.5"><input value="QUITO" list="cities" class="col-span-2 border rounded-lg px-2 py-1.5"><input value="8500" type="number" class="col-span-2 border rounded-lg px-2 py-1.5"><input value="Av. Ladrón de Guevara — maps..." class="col-span-4 border rounded-lg px-2 py-1.5 text-xs"></div>
+          <div class="grid grid-cols-12 gap-2 px-4 py-3 items-center text-sm"><input value="Estadio Alejandro Serrano Aguilar" class="col-span-4 border rounded-lg px-2 py-1.5"><input value="CUENCA" list="cities" class="col-span-2 border rounded-lg px-2 py-1.5"><input value="10000" type="number" class="col-span-2 border rounded-lg px-2 py-1.5"><input value="Av. Upano — maps..." class="col-span-4 border rounded-lg px-2 py-1.5 text-xs"></div>
+        </div>
+        <div class="p-3 bg-[#F8F9FB] border-t flex justify-between"><button class="text-xs bg-white border px-3 py-1.5 rounded-full font-semibold">+ Nuevo Venue</button><button class="text-xs bg-directus text-white px-4 py-1.5 rounded-full font-bold">Guardar cambios</button></div>
+      </div>
+    </div>
+
+    <div id="tab-ticket" class="tab hidden">
+      <h1 class="text-xl font-bold">TicketType <span class="text-black/40 font-normal text-sm">/ precios USD editables</span></h1>
+      <div class="mt-4 bg-white rounded-2xl border-2 border-starBlue/20 p-5">
+        <div class="flex items-center justify-between"><p class="text-xs font-bold tracking-widest text-starBlue">FEID — FERXXOCALIPSIS</p><button class="text-xs bg-starBlue text-white px-3 py-1 rounded-full font-bold">+ Tipo</button></div>
+        <div class="mt-3 space-y-2">
+          <div class="grid grid-cols-12 gap-2 items-center bg-[#F4F6FB] border rounded-xl px-3 py-2 text-sm"><input value="General" class="col-span-4 border rounded-lg px-2 py-1 font-semibold"><div class="col-span-3 flex items-center gap-1"><span class="text-xs">$</span><input value="35.00" class="border rounded-lg px-2 py-1 w-24 font-mono"></div><input value="500" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs font-bold text-emerald-600">420 disp.</span><button class="col-span-1 text-starRed text-xs">✕</button></div>
+          <div class="grid grid-cols-12 gap-2 items-center bg-[#EFF3FF] border-2 border-starBlue rounded-xl px-3 py-2 text-sm"><input value="VIP Star" class="col-span-4 border rounded-lg px-2 py-1 font-bold"><div class="col-span-3 flex items-center gap-1"><span class="text-xs">$</span><input value="65.00" class="border-2 border-starBlue rounded-lg px-2 py-1 w-24 font-mono font-bold"></div><input value="300" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs font-bold text-amber-600">88 disp.</span><button class="col-span-1 text-starRed text-xs">✕</button></div>
+          <div class="grid grid-cols-12 gap-2 items-center bg-white border rounded-xl px-3 py-2 text-sm"><input value="Star Box" class="col-span-4 border rounded-lg px-2 py-1 font-semibold"><div class="col-span-3 flex items-center gap-1"><span class="text-xs">$</span><input value="110.00" class="border rounded-lg px-2 py-1 w-24 font-mono"></div><input value="120" type="number" class="col-span-2 border rounded-lg px-2 py-1"><span class="col-span-2 text-xs">120 disp.</span><button class="col-span-1 text-starRed text-xs">✕</button></div>
+        </div>
+        <p class="text-[11px] text-black/40 mt-2">Edite precio, nombre y cupos aquí. Se refleja al instante en la web y en el aforo.</p>
+      </div>
+    </div>
+
+    <div id="tab-artist" class="tab hidden">
+      <h1 class="text-xl font-bold">Artist</h1><div class="mt-4 bg-white rounded-2xl border p-5 text-sm"><div class="grid grid-cols-3 gap-3"><div><label class="text-xs font-bold">Nombre</label><input value="Feid" class="w-full border rounded-xl px-3 py-2 mt-1"></div><div><label class="text-xs font-bold">Género</label><input value="Reggaeton" class="w-full border rounded-xl px-3 py-2 mt-1"></div><div><label class="text-xs font-bold">Spotify</label><input value="spotify.com/feid" class="w-full border rounded-xl px-3 py-2 mt-1 text-xs"></div></div><p class="text-xs text-black/40 mt-2">Foto: arrastrar imagen → MinIO</p></div>
+    </div>
+    <div id="tab-order" class="tab hidden">
+      <h1 class="text-xl font-bold">Order <span class="text-black/40 text-sm">/ 342 órdenes — QR validación</span></h1><div class="mt-4 bg-white rounded-2xl border overflow-hidden text-sm"><div class="grid grid-cols-12 px-4 py-2 bg-black/[0.02] text-xs font-bold text-black/40"><span class="col-span-3">EMAIL</span><span class="col-span-3">EVENTO</span><span class="col-span-2">TOTAL USD</span><span class="col-span-2">QR</span><span class="col-span-2">ESTADO</span></div><div class="px-4 py-3 grid grid-cols-12 text-xs border-t"><span class="col-span-3">ana@mail.com</span><span class="col-span-3">FEID — 22 ENE</span><span class="col-span-2 font-mono">$65.00</span><span class="col-span-2 font-mono">A1B2C3D4</span><span class="col-span-2"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">PAGADO</span></span></div></div>
+    </div>
+  </main>
+</div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(x=>x.className='tab-btn w-full text-left flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5');
+    b.className='tab-btn w-full text-left flex items-center gap-2 bg-[#F0F0FF] text-directus px-3 py-2 rounded-lg font-semibold border border-directus/20';
+    document.querySelectorAll('.tab').forEach(t=>t.classList.add('hidden'));
+    document.getElementById('tab-'+b.dataset.tab).classList.remove('hidden');
+  })
+})
+</script>
+</body>
+</html>

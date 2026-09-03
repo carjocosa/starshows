@@ -1,0 +1,19 @@
+{
+  email hola@starshows.ec
+}
+
+starshows.ec, www.starshows.ec {
+  reverse_proxy frontend:3000
+}
+
+api.starshows.ec {
+  reverse_proxy api:3001
+}
+
+admin.starshows.ec {
+  reverse_proxy directus:8055
+}
+
+minio.starshows.ec {
+  reverse_proxy minio:9001
+}

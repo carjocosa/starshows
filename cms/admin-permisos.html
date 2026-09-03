@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Starshows — Administración y Permisos por Usuario</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{directus:'#6644FF',starBlue:'#0A2A6B',starRed:'#E30613',ink:'#0A0F1F'},fontFamily:{poppins:['Poppins'],mono:['JetBrains Mono']}}}}</script>
+</head>
+<body class="bg-[#F1F3F5] font-poppins antialiased">
+<nav class="bg-white border-b border-black/10 px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+  <div class="flex items-center gap-3"><div class="w-8 h-8 bg-directus rounded-lg grid place-items-center text-white font-bold">◆</div><span class="font-bold text-sm">Starshows</span><span class="text-xs bg-ink text-white px-2 py-1 rounded-full ml-2">PERMISOS — RBAC</span></div>
+  <a href="admin-system.html" class="text-xs bg-white border px-3 py-1.5 rounded-full font-semibold">← Volver a Sistema</a>
+</nav>
+<div class="max-w-[1400px] mx-auto px-6 py-6">
+  <div class="flex items-center justify-between">
+    <div><h1 class="text-2xl font-extrabold">Administración — Matriz de permisos por usuario</h1><p class="text-sm text-black/50 mt-1">Asigne qué puede hacer cada usuario en cada módulo. Basado en Directus RBAC (colección + campo + acción).</p></div>
+    <button class="bg-directus text-white px-4 py-2 rounded-full text-xs font-bold">+ Nuevo usuario</button>
+  </div>
+
+  <div class="mt-6 bg-white rounded-2xl border border-black/10 p-4">
+    <p class="text-xs font-bold tracking-widest text-black/50">USUARIOS ACTIVOS</p>
+    <div class="mt-3 grid grid-cols-4 gap-3">
+      <div class="border-2 border-directus bg-[#F0F0FF] rounded-2xl p-4"><p class="text-sm font-bold">admin@starshows.ec</p><span class="text-xs bg-ink text-white px-2 py-1 rounded-full">Super Admin</span><p class="text-xs text-black/50 mt-2">Todo el sistema</p></div>
+      <div class="border rounded-2xl p-4"><p class="text-sm font-bold">contenido@starshows.ec</p><span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full">Contenido</span><p class="text-xs text-black/50 mt-2">Eventos, Venues, Artistas, Galería</p></div>
+      <div class="border rounded-2xl p-4"><p class="text-sm font-bold">taquilla@starshows.ec</p><span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Taquilla</span><p class="text-xs text-black/50 mt-2">Órdenes, QR, validación puerta</p></div>
+      <div class="border rounded-2xl p-4"><p class="text-sm font-bold">marca@auspiciante.ec</p><span class="text-xs bg-zinc-100 text-zinc-700 px-2 py-1 rounded-full">Aliado</span><p class="text-xs text-black/50 mt-2">Solo lectura eventos donde es sponsor</p></div>
+    </div>
+  </div>
+
+  <div class="mt-6 bg-white rounded-2xl border border-black/10 overflow-hidden">
+    <div class="px-4 py-3 bg-black/[0.02] border-b flex items-center justify-between">
+      <p class="text-xs font-bold tracking-widest">MATRIZ DE PERMISOS — marque lo que cada rol puede hacer</p>
+      <span class="text-xs font-mono bg-white border px-2 py-1 rounded-full">C=Crear R=Leer U=Actualizar D=Eliminar</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="bg-[#F8F9FB] border-b text-[11px] tracking-widest font-bold text-black/40">
+            <th class="text-left px-4 py-2">MÓDULO / COLECCIÓN</th>
+            <th class="text-center px-2 py-2">Super Admin</th>
+            <th class="text-center px-2 py-2">Contenido</th>
+            <th class="text-center px-2 py-2">Taquilla</th>
+            <th class="text-center px-2 py-2">Aliado</th>
+            <th class="text-left px-4 py-2">Notas</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y text-sm">
+          <tr><td class="px-4 py-2.5 font-semibold">Dashboard</td><td class="text-center">✓ R</td><td class="text-center">✓ R</td><td class="text-center">✓ R</td><td class="text-center">—</td><td class="px-4 text-xs text-black/50">Ventas, aforo, QR</td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">Event (fecha+ciudad, portada, descripción)</td><td class="text-center"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">CRUD</span></td><td class="text-center"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">CRUD</span></td><td class="text-center">R</td><td class="text-center">R*</td><td class="px-4 text-xs text-black/50">*solo donde es sponsor</td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Venue (nombre, ciudad libre, aforo, mapa)</td><td class="text-center">CRUD</td><td class="text-center">CRUD</td><td class="text-center">R</td><td class="text-center">—</td><td class="px-4 text-xs text-black/50">Ciudad libre: nueva se crea al escribir</td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">TicketType (precio USD, cupos, vendidos)</td><td class="text-center">CRUD</td><td class="text-center">CRU</td><td class="text-center">R</td><td class="text-center">—</td><td class="px-4 text-xs text-black/50">Contenido no puede borrar tipos con ventas</td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Artist (nombre, género, Spotify, foto)</td><td class="text-center">CRUD</td><td class="text-center">CRUD</td><td class="text-center">R</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">Sponsor / Aliados (logo, tier, website)</td><td class="text-center">CRUD</td><td class="text-center">CRU</td><td class="text-center">R</td><td class="text-center">R</td><td class="px-4 text-xs"></td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Galería por evento (MinIO)</td><td class="text-center">CRUD</td><td class="text-center">CRUD</td><td class="text-center">—</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">Order (email, total USD, QR, estado)</td><td class="text-center">CRUD</td><td class="text-center">R</td><td class="text-center"><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">R+Validar</span></td><td class="text-center">—</td><td class="px-4 text-xs">Taquilla valida QR offline</td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Pagos (Kushki/PayPhone)</td><td class="text-center">R</td><td class="text-center">—</td><td class="text-center">R</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">Newsletter (Brevo)</td><td class="text-center">CRUD</td><td class="text-center">R</td><td class="text-center">—</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Usuarios & Roles (crear, asignar rol)</td><td class="text-center"><span class="bg-ink text-white px-2 py-0.5 rounded-full">CRUD</span></td><td class="text-center">—</td><td class="text-center">—</td><td class="text-center">—</td><td class="px-4 text-xs">Solo Super Admin</td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">Configuración (pagos, SMTP, GA4, Pixel)</td><td class="text-center">CRU</td><td class="text-center">—</td><td class="text-center">—</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Logs & Auditoría</td><td class="text-center">R</td><td class="text-center">R*</td><td class="text-center">R*</td><td class="text-center">—</td><td class="px-4 text-xs">*solo sus acciones</td></tr>
+          <tr class="bg-[#F8F9FB]/50"><td class="px-4 py-2.5 font-semibold">Backups & Restore</td><td class="text-center">CRUD</td><td class="text-center">—</td><td class="text-center">—</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+          <tr><td class="px-4 py-2.5 font-semibold">Media (MinIO S3)</td><td class="text-center">CRUD</td><td class="text-center">CRUD</td><td class="text-center">R</td><td class="text-center">—</td><td class="px-4 text-xs"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="p-4 bg-amber-50 border-t text-xs">
+      <p class="font-bold text-amber-800">Cómo asignar:</p>
+      <ol class="list-decimal list-inside text-amber-900/70 mt-1 space-y-1">
+        <li>Cree usuario en <span class="font-mono bg-white border px-1 rounded">Usuarios & Roles → + Nuevo usuario</span></li>
+        <li>Elija rol (Super Admin / Contenido / Taquilla / Aliado) — los permisos se aplican automático según matriz</li>
+        <li>Para permiso fino por campo (ej: Contenido no edita precio), edite rol en Directus → Permissions → Field → desmarque `price`</li>
+        <li>Guarde — el usuario ve solo lo que le corresponde al loguearse en <span class="font-mono">admin.starshows.ec</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="mt-6 grid grid-cols-3 gap-4">
+    <div class="bg-white rounded-2xl border p-4"><p class="text-xs font-bold tracking-widest">EJEMPLO — Nuevo usuario Taquilla</p><div class="mt-2 space-y-2 text-xs"><input value="validador@starshows.ec" class="w-full border rounded-lg px-3 py-2"><select class="w-full border rounded-lg px-3 py-2"><option>Taquilla — R+Validar Órdenes</option></select><button class="w-full bg-starBlue text-white py-2 rounded-full font-bold">Crear y enviar invitación</button></div></div>
+    <div class="bg-white rounded-2xl border p-4"><p class="text-xs font-bold tracking-widest">PERMISO POR CAMPO</p><p class="text-xs text-black/60 mt-2">Ejemplo: rol Contenido puede editar <span class="font-mono bg-black/5 px-1 rounded">Event.title</span> pero no <span class="font-mono bg-red-50 border border-red-200 px-1 rounded">TicketType.price</span> — se bloquea a nivel campo.</p></div>
+    <div class="bg-directus text-white rounded-2xl p-4"><p class="text-xs font-bold tracking-widest text-white/70">DIRECTUS RBAC</p><p class="text-sm font-bold mt-1">Todo es RBAC nativo</p><p class="text-xs text-white/70 mt-1">Colección + Acción + Campo + Filtro por creador. Sin código.</p></div>
+  </div>
+</div>
+</body>
+</html>
