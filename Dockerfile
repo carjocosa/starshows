@@ -9,6 +9,7 @@ FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/frontend/.next ./frontend/.next
 COPY --from=builder /app/frontend/package*.json ./frontend/
+COPY --from=builder /app/frontend/app/page.html ./frontend/app/page.html
 COPY --from=builder /app/frontend/public ./frontend/public 2>/dev/null || true
 WORKDIR /app/frontend
 RUN npm install --omit=dev
